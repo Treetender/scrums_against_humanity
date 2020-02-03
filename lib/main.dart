@@ -28,7 +28,6 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  int _counter = 0;
   final _cards = [
     "0",
     "1/2",
@@ -44,12 +43,6 @@ class _MyHomePageState extends State<MyHomePage> {
     "∞",
     "ESC"
   ];
-
-  void _incrementCounter() {
-    setState(() {
-      _counter++;
-    });
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -81,28 +74,27 @@ class SelectedCardPage extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: SelectedScrumCard()
-    );
-  }
-}
-
-class SelectedScrumCard extends StatelessWidget {
-  @override
-  Widget build(BuildContext context) {
-    return AspectRatio
-    (
-      aspectRatio: 1.0,
-      child: Container(
-        margin: EdgeInsets.all(4.0),
-        decoration: BoxDecoration(
-          border: Border.all(
-            color: Colors.black,
-            width: 5.0
+        body: InkWell(
+          onTap: () => Navigator.of(context).pop(),
+      child: Center(
+        child: AspectRatio(
+          aspectRatio: 1.0,
+          child: Container(
+            margin: EdgeInsets.all(4.0),
+            decoration: BoxDecoration(
+              border: Border.all(color: Colors.black, width: 5.0),
+            ),
+            child: Column(
+              children: <Widget>[
+                Expanded(child: AutosizedText(this.value), flex: 1),
+                Expanded(child: AutosizedText(this.value), flex: 6),
+                Expanded(child: AutosizedText(this.value), flex: 1),
+              ],
+            ),
           ),
         ),
-        child: AutosizedText("42"),
-        ),
-    );
+      ),
+    ));
   }
 }
 
@@ -113,10 +105,7 @@ class AutosizedText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return FittedBox(
-        child: Text(text),
-        fit: BoxFit.fill
-    );
+    return FittedBox(child: Text(text), fit: BoxFit.contain);
   }
 }
 
@@ -128,10 +117,11 @@ class ScrumCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => SelectedCardPage(value))),
+      onTap: () => Navigator.of(context).push(
+          MaterialPageRoute(builder: (context) => SelectedCardPage(value))),
       child: Container(
         padding: EdgeInsets.all(16.0),
-        margin: EdgeInsets.all(3.0),
+        margin: EdgeInsets.all(8.0),
         decoration: BoxDecoration(border: Border.all(color: Colors.black)),
         child: FittedBox(
           fit: BoxFit.fill,
