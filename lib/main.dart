@@ -11,7 +11,7 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Scrums Against Humanity',
       theme: ThemeData(
-        primarySwatch: Colors.blue,
+        primarySwatch: Colors.teal,
       ),
       home: MyHomePage(title: 'Scrums Against Humanity'),
     );
@@ -57,10 +57,9 @@ class _MyHomePageState extends State<MyHomePage> {
           return ScrumCard(_cards[index]);
         },
         gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-            crossAxisCount:
-                (MediaQuery.of(context).orientation == Orientation.portrait)
-                    ? 2
-                    : 3),
+            crossAxisCount: (MediaQuery.of(context).size.width > 1000)
+                ? 4
+                : MediaQuery.of(context).size.width >= 600 ? 3 : 2),
       )),
     );
   }
@@ -75,20 +74,33 @@ class SelectedCardPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
         body: InkWell(
-          onTap: () => Navigator.of(context).pop(),
+      onTap: () => Navigator.of(context).pop(),
       child: Center(
         child: AspectRatio(
           aspectRatio: 1.0,
           child: Container(
             margin: EdgeInsets.all(4.0),
             decoration: BoxDecoration(
-              border: Border.all(color: Colors.black, width: 5.0),
+              border: Border.all(color: Theme.of(context).colorScheme.onSurface, width: 5.0),
             ),
             child: Column(
               children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Align(
+                    child: Text(this.value,
+                        style: Theme.of(context).textTheme.display3.copyWith(color: Theme.of(context).colorScheme.onSurface)),
+                    alignment: Alignment.centerLeft,
+                  ),
+                ),
                 Expanded(child: AutosizedText(this.value), flex: 1),
-                Expanded(child: AutosizedText(this.value), flex: 6),
-                Expanded(child: AutosizedText(this.value), flex: 1),
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Align(
+                      child: Text(this.value,
+                          style: Theme.of(context).textTheme.display3.copyWith(color: Theme.of(context).colorScheme.onSurface)),
+                    alignment: Alignment.centerRight),
+                ),
               ],
             ),
           ),
@@ -122,7 +134,7 @@ class ScrumCard extends StatelessWidget {
       child: Container(
         padding: EdgeInsets.all(16.0),
         margin: EdgeInsets.all(8.0),
-        decoration: BoxDecoration(border: Border.all(color: Colors.black)),
+        decoration: BoxDecoration(border: Border.all(color: Theme.of(context).colorScheme.onSurface)),
         child: FittedBox(
           fit: BoxFit.fill,
           child: Padding(
