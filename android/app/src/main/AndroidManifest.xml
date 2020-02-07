@@ -7,7 +7,7 @@
          FlutterApplication and put your custom class here. -->
     <application
         android:name="io.flutter.app.FlutterApplication"
-        android:label="scrums_against_humanity"
+        android:label="Scrums Against Humanity"
         android:icon="@mipmap/ic_launcher">
         <activity
             android:name=".MainActivity"

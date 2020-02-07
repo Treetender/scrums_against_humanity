@@ -1,10 +1,19 @@
 import 'dart:ui';
 
+import 'package:bloc_provider/bloc_provider.dart';
 import 'package:flutter/material.dart';
+import 'package:scrums_against_humanity/selectionPage.dart';
+import 'package:scrums_against_humanity/settingsBloc.dart';
+import 'package:scrums_against_humanity/settingsDrawer.dart';
 
-void main() => runApp(MyApp());
+void main() => runApp(
+      BlocProvider<SettingsBloc>(
+        creator: (_context, _bag) => SettingsBloc(),
+        child: App(),
+      ),
+    );
 
-class MyApp extends StatelessWidget {
+class App extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
@@ -50,6 +59,7 @@ class _MyHomePageState extends State<MyHomePage> {
       appBar: AppBar(
         title: Text(widget.title),
       ),
+      drawer: SettingsDrawer(),
       body: Center(
           child: GridView.builder(
         itemCount: _cards.length,
@@ -65,61 +75,7 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class SelectedCardPage extends StatelessWidget {
-  final String value;
 
-  SelectedCardPage(this.value);
-
-  @override
-  Widget build(BuildContext context) {
-    return Scaffold(
-        body: InkWell(
-      onTap: () => Navigator.of(context).pop(),
-      child: Center(
-        child: AspectRatio(
-          aspectRatio: 1.0,
-          child: Container(
-            margin: EdgeInsets.all(4.0),
-            decoration: BoxDecoration(
-              border: Border.all(color: Theme.of(context).colorScheme.onSurface, width: 5.0),
-            ),
-            child: Column(
-              children: <Widget>[
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Align(
-                    child: Text(this.value,
-                        style: Theme.of(context).textTheme.display3.copyWith(color: Theme.of(context).colorScheme.onSurface)),
-                    alignment: Alignment.centerLeft,
-                  ),
-                ),
-                Expanded(child: AutosizedText(this.value), flex: 1),
-                Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Align(
-                      child: Text(this.value,
-                          style: Theme.of(context).textTheme.display3.copyWith(color: Theme.of(context).colorScheme.onSurface)),
-                    alignment: Alignment.centerRight),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
-    ));
-  }
-}
-
-class AutosizedText extends StatelessWidget {
-  final String text;
-
-  AutosizedText(this.text);
-
-  @override
-  Widget build(BuildContext context) {
-    return FittedBox(child: Text(text), fit: BoxFit.contain);
-  }
-}
 
 class ScrumCard extends StatelessWidget {
   final String value;
@@ -128,24 +84,31 @@ class ScrumCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () => Navigator.of(context).push(
-          MaterialPageRoute(builder: (context) => SelectedCardPage(value))),
-      child: Container(
-        padding: EdgeInsets.all(16.0),
-        margin: EdgeInsets.all(8.0),
-        decoration: BoxDecoration(border: Border.all(color: Theme.of(context).colorScheme.onSurface)),
-        child: FittedBox(
-          fit: BoxFit.fill,
-          child: Padding(
-            padding: const EdgeInsets.all(8.0),
-            child: Text(
-              value,
-              style: TextStyle(inherit: true, fontWeight: FontWeight.bold),
+    final bloc = BlocProvider.of<SettingsBloc>(context);
+    return StreamBuilder<bool>(
+      stream: bloc.visibilityStream,
+      initialData: bloc.visibilityStream.value,
+      builder: (context, snapshot) {
+        return InkWell(
+          onTap: () => Navigator.of(context).push(MaterialPageRoute(builder: (context) => SelectionPage(value, !snapshot.data))),
+          child: Container(
+            padding: EdgeInsets.all(16.0),
+            margin: EdgeInsets.all(8.0),
+            decoration: BoxDecoration(
+                border: Border.all(color: Theme.of(context).colorScheme.onSurface)),
+            child: FittedBox(
+              fit: BoxFit.fill,
+              child: Padding(
+                padding: const EdgeInsets.all(8.0),
+                child: Text(
+                  value,
+                  style: TextStyle(inherit: true, fontWeight: FontWeight.bold),
+                ),
+              ),
             ),
           ),
-        ),
-      ),
+        );
+      }
     );
   }
 }
