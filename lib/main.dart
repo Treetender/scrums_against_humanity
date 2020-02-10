@@ -1,6 +1,7 @@
 import 'dart:ui';
 
 import 'package:bloc_provider/bloc_provider.dart';
+import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:scrums_against_humanity/selectionPage.dart';
 import 'package:scrums_against_humanity/settingsBloc.dart';
@@ -17,12 +18,16 @@ class App extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
-    return MaterialApp(
-      title: 'Scrums Against Humanity',
-      theme: ThemeData(
-        primarySwatch: Colors.teal,
+    return DynamicTheme(
+      data: (brightness) => new ThemeData(
+        primarySwatch: Colors.indigo,
+        brightness: brightness,
       ),
-      home: MyHomePage(title: 'Scrums Against Humanity'),
+      themedWidgetBuilder: (context, theme) => MaterialApp(
+        title: 'Scrums Against Humanity',
+        theme: theme,
+        home: MyHomePage(title: 'Scrums Against Humanity'),
+      ),
     );
   }
 }
@@ -95,14 +100,15 @@ class ScrumCard extends StatelessWidget {
             padding: EdgeInsets.all(16.0),
             margin: EdgeInsets.all(8.0),
             decoration: BoxDecoration(
-                border: Border.all(color: Theme.of(context).colorScheme.onSurface)),
+                border: Border.all(color: Theme.of(context).colorScheme.onSurface),
+                color: Theme.of(context).accentColor),
             child: FittedBox(
               fit: BoxFit.fill,
               child: Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Text(
                   value,
-                  style: TextStyle(inherit: true, fontWeight: FontWeight.bold),
+                  style: TextStyle(inherit: true, fontWeight: FontWeight.bold, color: Theme.of(context).colorScheme.onSecondary),
                 ),
               ),
             ),

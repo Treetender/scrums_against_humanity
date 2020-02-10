@@ -1,4 +1,5 @@
 import 'package:bloc_provider/bloc_provider.dart';
+import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
 import 'package:scrums_against_humanity/settingsBloc.dart';
 
@@ -37,7 +38,14 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
               subtitle:
                   Text("Hide the selected card until you tap the screen"),
                 );
-            })
+            }),
+            SwitchListTile(
+              onChanged: (bool value) {
+                DynamicTheme.of(context).setBrightness(value? Brightness.dark: Brightness.light);
+              },
+              value: DynamicTheme.of(context).brightness == Brightness.dark,
+              title: Text("Switch to Dark Theme"),
+            )
       ],
     ));
   }

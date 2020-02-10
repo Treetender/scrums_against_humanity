@@ -14,6 +14,7 @@ class ChosenCard extends StatelessWidget {
           decoration: BoxDecoration(
             border: Border.all(
                 color: Theme.of(context).colorScheme.onSurface, width: 5.0),
+                color: Theme.of(context).colorScheme.secondary
           ),
           child: Column(
             children: <Widget>[
@@ -22,17 +23,17 @@ class ChosenCard extends StatelessWidget {
                 child: Align(
                   child: Text(this.value,
                       style: Theme.of(context).textTheme.headline2.copyWith(
-                          color: Theme.of(context).colorScheme.onSurface)),
+                          color: Theme.of(context).colorScheme.onSecondary)),
                   alignment: Alignment.centerLeft,
                 ),
               ),
-              Expanded(child: AutosizedText(this.value), flex: 1),
+              Expanded(child: AutosizedText(this.value, Theme.of(context).colorScheme.onSecondary), flex: 1),
               Padding(
                 padding: const EdgeInsets.all(8.0),
                 child: Align(
                     child: Text(this.value,
                         style: Theme.of(context).textTheme.headline2.copyWith(
-                            color: Theme.of(context).colorScheme.onSurface)),
+                            color: Theme.of(context).colorScheme.onSecondary)),
                     alignment: Alignment.centerRight),
               ),
             ],
