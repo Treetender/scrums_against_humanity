@@ -18,11 +18,9 @@ class App extends StatelessWidget {
   // This widget is the root of your application.
   @override
   Widget build(BuildContext context) {
+    final bloc = BlocProvider.of<SettingsBloc>(context);
     return DynamicTheme(
-      data: (brightness) => new ThemeData(
-        primarySwatch: Colors.indigo,
-        brightness: brightness,
-      ),
+      data: (brightness) => brightness == Brightness.dark ? bloc.darkTheme : bloc.lightTheme, 
       themedWidgetBuilder: (context, theme) => MaterialApp(
         title: 'Scrums Against Humanity',
         theme: theme,

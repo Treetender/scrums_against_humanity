@@ -9,7 +9,6 @@ class SettingsDrawer extends StatefulWidget {
 }
 
 class _SettingsDrawerState extends State<SettingsDrawer> {
-  
 
   @override
   Widget build(BuildContext context) {
@@ -30,22 +29,24 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
             initialData: bloc.visibilityStream.value,
             builder: (context, snapshot) {
               return SwitchListTile(
-              value: snapshot.data,
-              onChanged: (bool value) {
-                bloc.toggleVisibility(value);
-              },
-              title: Text("Hide on Select"),
-              subtitle:
-                  Text("Hide the selected card until you tap the screen"),
-                );
+                value: snapshot.data,
+                onChanged: (bool value) {
+                  bloc.toggleVisibility(value);
+                },
+                title: Text("Hide on Select"),
+                subtitle:
+                    Text("Hide the selected card until you tap the screen"),
+              );
             }),
-            SwitchListTile(
-              onChanged: (bool value) {
-                DynamicTheme.of(context).setBrightness(value? Brightness.dark: Brightness.light);
-              },
-              value: DynamicTheme.of(context).brightness == Brightness.dark,
-              title: Text("Switch to Dark Theme"),
-            )
+        SwitchListTile(
+          onChanged: (bool value) {
+            DynamicTheme.of(context)
+                .setBrightness(value ? Brightness.dark : Brightness.light);
+            DynamicTheme.of(context).setThemeData(value ? bloc.darkTheme : bloc.lightTheme);
+          },
+          value: DynamicTheme.of(context).brightness == Brightness.dark,
+          title: Text("Switch to Dark Theme"),
+        )
       ],
     ));
   }
