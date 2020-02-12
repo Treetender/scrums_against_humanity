@@ -3,6 +3,7 @@ import 'dart:ui';
 import 'package:bloc_provider/bloc_provider.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
+import 'package:scrums_against_humanity/scrumCard.dart';
 import 'package:scrums_against_humanity/selectionPage.dart';
 import 'package:scrums_against_humanity/settingsBloc.dart';
 import 'package:scrums_against_humanity/settingsDrawer.dart';
@@ -70,7 +71,7 @@ class _MyHomePageState extends State<MyHomePage> {
             child: GridView.builder(
           itemCount: _cards.length,
           itemBuilder: (context, index) {
-            return ScrumCard(_cards[index]);
+            return ClickableScrumCard(_cards[index]);
           },
           gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
               crossAxisCount: (MediaQuery.of(context).size.width > 1000)
@@ -82,10 +83,10 @@ class _MyHomePageState extends State<MyHomePage> {
   }
 }
 
-class ScrumCard extends StatelessWidget {
+class ClickableScrumCard extends StatelessWidget {
   final String value;
 
-  ScrumCard(this.value);
+  ClickableScrumCard(this.value);
 
   @override
   Widget build(BuildContext context) {
@@ -94,45 +95,13 @@ class ScrumCard extends StatelessWidget {
         stream: bloc.visibilityStream,
         initialData: bloc.visibilityStream.value,
         builder: (context, snapshot) {
-          return InkWell(
-            onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                builder: (context) => SelectionPage(value, !snapshot.data))),
-            child: Container(
-              padding: EdgeInsets.all(16.0),
-              margin: EdgeInsets.all(12.0),
-              decoration: ShapeDecoration(
-                  shadows: [
-                    BoxShadow(
-                      color: Theme.of(context).brightness == Brightness.dark
-                          ? Colors.red[900]
-                          : Colors.indigo[800],
-                      blurRadius:
-                          20.0, // has the effect of softening the shadow
-                      spreadRadius:
-                          1.0, // has the effect of extending the shadow
-                      offset: Offset(
-                        10.0, // horizontal,
-                        10.0, // vertical
-                      ),
-                    ),
-                  ],
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.all(Radius.circular(32.0)),
-                  ),
-                  color: Theme.of(context).accentColor),
-              child: FittedBox(
-                fit: BoxFit.fill,
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Text(
-                    value,
-                    style: TextStyle(
-                        inherit: true,
-                        fontWeight: FontWeight.bold,
-                        color: Theme.of(context).colorScheme.onSecondary),
-                  ),
-                ),
-              ),
+          return Tooltip(
+            message: "Select ${this.value}",
+            waitDuration: Duration(seconds: 2),
+                      child: InkWell(
+              onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                  builder: (context) => SelectionPage(value, !snapshot.data))),
+              child: ScrumCard(value, false)
             ),
           );
         });

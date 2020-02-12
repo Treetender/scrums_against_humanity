@@ -1,10 +1,23 @@
 import 'package:flutter/material.dart';
 import 'package:scrums_against_humanity/autosizeText.dart';
 
-class ChosenCard extends StatelessWidget {
+class ScrumCard extends StatelessWidget {
   final String value;
+  final bool selected;
 
-  ChosenCard(this.value);
+  ScrumCard(this.value, this.selected);
+
+  Widget _miniValue(BuildContext context, Alignment alignment) => Padding(
+        padding: const EdgeInsets.all(8.0),
+        child: this.selected
+            ? Align(
+                child: Text(this.value,
+                    style: Theme.of(context).textTheme.headline2.copyWith(
+                        color: Theme.of(context).colorScheme.onSecondary)),
+                alignment: alignment,
+              )
+            : Container(),
+      );
 
   @override
   Widget build(BuildContext context) => AspectRatio(
@@ -32,27 +45,12 @@ class ChosenCard extends StatelessWidget {
               color: Theme.of(context).colorScheme.secondary),
           child: Column(
             children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Align(
-                  child: Text(this.value,
-                      style: Theme.of(context).textTheme.headline2.copyWith(
-                          color: Theme.of(context).colorScheme.onSecondary)),
-                  alignment: Alignment.centerLeft,
-                ),
-              ),
+              _miniValue(context, Alignment.centerLeft),
               Expanded(
                   child: AutosizedText(
                       this.value, Theme.of(context).colorScheme.onSecondary),
                   flex: 1),
-              Padding(
-                padding: const EdgeInsets.all(8.0),
-                child: Align(
-                    child: Text(this.value,
-                        style: Theme.of(context).textTheme.headline2.copyWith(
-                            color: Theme.of(context).colorScheme.onSecondary)),
-                    alignment: Alignment.centerRight),
-              ),
+              _miniValue(context, Alignment.centerRight),
             ],
           ),
         ),

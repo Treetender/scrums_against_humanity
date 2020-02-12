@@ -1,6 +1,6 @@
 
 import 'package:flutter/material.dart';
-import 'package:scrums_against_humanity/chosenCard.dart';
+import 'package:scrums_against_humanity/scrumCard.dart';
 
 class SelectionPage extends StatefulWidget {
   final String value;
@@ -35,7 +35,7 @@ class _SelectedPageState extends State<SelectionPage> {
           child: AnimatedOpacity(
               opacity: visible ? 1.0 : 0.0,
               duration: Duration(milliseconds: 500),
-              child: ChosenCard(this.widget.value)),
+              child: ScrumCard(this.widget.value, true)),
         ),
       ),
     );
