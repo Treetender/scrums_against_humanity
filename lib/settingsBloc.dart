@@ -8,13 +8,13 @@ class SettingsBloc extends Bloc {
   final lightTheme = ThemeData(
     accentColor: Colors.indigoAccent[100],
     primaryColor: Colors.white,
-    brightness: Brightness.light
+    brightness: Brightness.light,
   );
 
   final darkTheme = ThemeData(
     brightness: Brightness.dark,
     primaryColor: ThemeData.dark().scaffoldBackgroundColor,
-    accentColor: Colors.orangeAccent[200]
+    accentColor: Colors.orangeAccent[200],
   );
 
   bool _visibility = false;
