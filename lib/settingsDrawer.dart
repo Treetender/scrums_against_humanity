@@ -9,7 +9,6 @@ class SettingsDrawer extends StatefulWidget {
 }
 
 class _SettingsDrawerState extends State<SettingsDrawer> {
-
   @override
   Widget build(BuildContext context) {
     final bloc = BlocProvider.of<SettingsBloc>(context);
@@ -42,12 +41,52 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
           onChanged: (bool value) {
             DynamicTheme.of(context)
                 .setBrightness(value ? Brightness.dark : Brightness.light);
-            DynamicTheme.of(context).setThemeData(value ? bloc.darkTheme : bloc.lightTheme);
+            DynamicTheme.of(context)
+                .setThemeData(value ? bloc.darkTheme : bloc.lightTheme);
           },
           value: DynamicTheme.of(context).brightness == Brightness.dark,
           title: Text("Switch to Dark Theme"),
-        )
+        ),
+        Text("Decks"),
+        Divider(),
+        _deckSelector(context),
       ],
     ));
+  }
+
+  Widget _deckSelector(BuildContext context) {
+    final bloc = BlocProvider.of<SettingsBloc>(context);
+
+    return StreamBuilder<ScrumDecks>(
+        initialData: bloc.chosenDeckStream.value,
+        stream: bloc.chosenDeckStream,
+        builder: (context, snapshot) {
+          return Column(children: [
+            RadioListTile(
+              title: Text("Standard"),
+              groupValue: snapshot.data,
+              value: ScrumDecks.standard,
+              onChanged: (ScrumDecks deck) {
+                bloc.toggleDeck(deck);
+              },
+            ),
+            RadioListTile(
+              title: Text("Fibonacci"),
+              groupValue: snapshot.data,
+              value: ScrumDecks.fibonacci,
+              onChanged: (ScrumDecks deck) {
+                bloc.toggleDeck(deck);
+              },
+            ),
+            RadioListTile(
+              title: Text("T-Shirt"),
+              groupValue: snapshot.data,
+              value: ScrumDecks.size,
+              onChanged: (ScrumDecks deck) {
+                bloc.toggleDeck(deck);
+              },
+            ),
+          ]);
+        });
   }
 }

@@ -42,24 +42,9 @@ class MyHomePage extends StatefulWidget {
 }
 
 class _MyHomePageState extends State<MyHomePage> {
-  final _cards = [
-    "0",
-    "1/2",
-    "1",
-    "2",
-    "3",
-    "5",
-    "8",
-    "13",
-    "20",
-    "40",
-    "100",
-    "∞",
-    "ESC"
-  ];
-
   @override
   Widget build(BuildContext context) {
+    final bloc = BlocProvider.of<SettingsBloc>(context);
     return Scaffold(
       appBar: AppBar(
         title: Text(widget.title),
@@ -68,16 +53,22 @@ class _MyHomePageState extends State<MyHomePage> {
       body: Padding(
         padding: const EdgeInsets.only(top: 16.0),
         child: Center(
-            child: GridView.builder(
-          itemCount: _cards.length,
-          itemBuilder: (context, index) {
-            return ClickableScrumCard(_cards[index]);
-          },
-          gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-              crossAxisCount: (MediaQuery.of(context).size.width > 1000)
-                  ? 4
-                  : MediaQuery.of(context).size.width >= 600 ? 3 : 2),
-        )),
+            child: StreamBuilder<List<String>>(
+                stream: bloc.activeDeckStream,
+                initialData: bloc.activeDeckStream.value,
+                builder: (context, snapshot) {
+                  return GridView.builder(
+                    itemCount: snapshot.data.length,
+                    itemBuilder: (context, index) {
+                      return ClickableScrumCard(snapshot.data[index]);
+                    },
+                    gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
+                        crossAxisCount: (MediaQuery.of(context).size.width >
+                                1000)
+                            ? 4
+                            : MediaQuery.of(context).size.width >= 600 ? 3 : 2),
+                  );
+                })),
       ),
     );
   }
@@ -97,12 +88,11 @@ class ClickableScrumCard extends StatelessWidget {
         builder: (context, snapshot) {
           return Tooltip(
             message: "Select ${this.value}",
-            waitDuration: Duration(seconds: 2),
-                      child: InkWell(
-              onTap: () => Navigator.of(context).push(MaterialPageRoute(
-                  builder: (context) => SelectionPage(value, !snapshot.data))),
-              child: ScrumCard(value, false)
-            ),
+            child: GestureDetector(
+                onTap: () => Navigator.of(context).push(MaterialPageRoute(
+                    builder: (context) =>
+                        SelectionPage(value, !snapshot.data))),
+                child: ScrumCard(value, false)),
           );
         });
   }

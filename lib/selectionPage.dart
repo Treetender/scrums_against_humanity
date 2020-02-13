@@ -21,7 +21,7 @@ class _SelectedPageState extends State<SelectionPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(),
-      body: InkWell(
+      body: GestureDetector(
         onTap: () {
           if (!visible) {
             setState(() {
