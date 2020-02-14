@@ -34,7 +34,6 @@ class SettingsBloc extends Bloc {
   final _deckController = BehaviorSubject<List<String>>();
   final _hiddenOnSelectSettingsKey = "hiddenOnSelect";
   final _themeSettingKey = "activeTheme";
-  final _activeDeckKey = "activeDeck";
   final _chosenDeckKey = "chosenDeck";
 
   SettingsBloc() {
@@ -44,10 +43,13 @@ class SettingsBloc extends Bloc {
       .then((value) => _visibilityController.sink.add(value.getBool(_hiddenOnSelectSettingsKey) ?? false));
     SharedPreferences.getInstance()
       .then((value) => _themeController.sink.add(value.get(_themeSettingKey) ?? false));
+
     SharedPreferences.getInstance()
-      .then((value) => _deckController.sink.add(value.get(_activeDeckKey) ?? _standardCards));
-    SharedPreferences.getInstance()
-      .then((value) => _chosenDeckController.sink.add(value.get(_chosenDeckKey) ?? ScrumDecks.standard));
+      .then((value) { 
+        var deck = _getDeckFromString(value.get(_chosenDeckKey) ?? "Standard");
+        _deckController.sink.add(_getCardsForDeck(deck));
+        _chosenDeckController.sink.add(deck);
+      });
   }
 
   bool get selectedVisibility => _visibility;
@@ -62,6 +64,40 @@ class SettingsBloc extends Bloc {
       .then((value) => value.setBool(_hiddenOnSelectSettingsKey, visible));
   }
 
+  ScrumDecks _getDeckFromString(String deckName) {
+    switch(deckName) {
+      case "Fibonacci":
+        return ScrumDecks.standard;
+      case "Size":
+        return ScrumDecks.size;
+      default:
+        return ScrumDecks.standard;
+    }
+  }
+
+  List<String> _getCardsForDeck(ScrumDecks deck) {
+    switch(deck) {
+      case ScrumDecks.fibonacci:
+        return _fibCards;
+      case ScrumDecks.size:
+        return _sizeCards;
+      default:
+        return _standardCards;
+    }
+  } 
+
+  String _getStringFromDeck(ScrumDecks deck) {
+    switch(deck) {
+      case  ScrumDecks.fibonacci:
+        return "Fibonacci";
+      case ScrumDecks.size:
+        return "Size";
+      default:
+        return "Standard";
+    };
+  }
+
+
   void toggleDeck(ScrumDecks deckChoice) {
     switch(deckChoice) {
       case ScrumDecks.standard:
@@ -74,6 +110,10 @@ class SettingsBloc extends Bloc {
         _deckController.sink.add(_sizeCards);
         break;
     }
+    
+    SharedPreferences.getInstance()
+      .then((value) => value.setString(_chosenDeckKey, _getStringFromDeck(deckChoice)));
+
     _chosenDeckController.sink.add(deckChoice);
   }
 

@@ -51,7 +51,7 @@ class _MyHomePageState extends State<MyHomePage> {
       ),
       drawer: SettingsDrawer(),
       body: Padding(
-        padding: const EdgeInsets.only(top: 16.0),
+        padding: const EdgeInsets.only(top: 8.0),
         child: Center(
             child: StreamBuilder<List<String>>(
                 stream: bloc.activeDeckStream,
@@ -63,9 +63,8 @@ class _MyHomePageState extends State<MyHomePage> {
                       return ClickableScrumCard(snapshot.data[index]);
                     },
                     gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: (MediaQuery.of(context).size.width >
-                                1000)
-                            ? 4
+                        crossAxisCount: (MediaQuery.of(context).size.width > 1200) ? 5
+                            : MediaQuery.of(context).size.width >= 800 ? 4 
                             : MediaQuery.of(context).size.width >= 600 ? 3 : 2),
                   );
                 })),

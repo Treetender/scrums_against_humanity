@@ -23,7 +23,7 @@ class ScrumCard extends StatelessWidget {
   Widget build(BuildContext context) => AspectRatio(
         aspectRatio: 1.0,
         child: Container(
-          margin: EdgeInsets.all(24.0),
+          margin: EdgeInsets.all(16.0),
           padding: EdgeInsets.all(8.0),
           decoration: ShapeDecoration(
               shadows: [
