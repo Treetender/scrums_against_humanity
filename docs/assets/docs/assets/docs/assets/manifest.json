@@ -1,6 +1,6 @@
 {
-  "name": "Scrums Against Humanity",
-  "short_name": "Scrum Planner",
+  "name": "scrums_against_humanity",
+  "short_name": "scrums_against_humanity",
   "start_url": "/",
   "display": "standalone",
   "theme_color": "#F00",
@@ -9,13 +9,13 @@
   "version": "1.0.0+1",
   "icons": [
     {
-      "src": "/assets/images/icon.png",
+      "src": "/assets/images/icon-192.png",
       "type": "image/png",
       "sizes": "192x192",
       "purpose": "maskable any"
     },
     {
-      "src": "/assets/images/icon.png",
+      "src": "/assets/images/icon-512.png",
       "type": "image/png",
       "sizes": "512x512",
       "purpose": "maskable any"
