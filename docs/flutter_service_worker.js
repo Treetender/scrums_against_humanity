@@ -7,8 +7,8 @@ const RESOURCES = {
 "/assets/fonts/MaterialIcons-Regular.ttf": "56d3ffdef7a25659eab6a68a3fbfaf16",
 "/assets/AssetManifest.json": "2efbb41d7877d10aac9d091f58ccd7b9",
 "/assets/FontManifest.json": "01700ba55b08a6141f33e168c4a6c22f",
-"/assets/LICENSE": "0b27cc7d67a68cb7938ac2dae093052c",
-"/index.html": "835244928ce3a3953cae84e874365ba4"
+"/assets/LICENSE": "4142727376a16bbf199e716395c4ebfb",
+"/index.html": "069bafb5fd980a1e74b73d5f429726df"
 };
 
 self.addEventListener('activate', function (event) {
