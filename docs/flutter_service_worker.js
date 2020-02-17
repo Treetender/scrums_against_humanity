@@ -5,10 +5,11 @@ const RESOURCES = {
 "/main.dart.js.deps": "f1d6dd6d8b12eaf7f3f9c6522189cadf",
 "/assets/packages/cupertino_icons/assets/CupertinoIcons.ttf": "115e937bb829a890521f72d2e664b632",
 "/assets/fonts/MaterialIcons-Regular.ttf": "56d3ffdef7a25659eab6a68a3fbfaf16",
-"/assets/AssetManifest.json": "2efbb41d7877d10aac9d091f58ccd7b9",
+"/assets/AssetManifest.json": "325d3ad8c6937a4fbaabe1d9e5a067ec",
 "/assets/FontManifest.json": "01700ba55b08a6141f33e168c4a6c22f",
-"/assets/LICENSE": "4142727376a16bbf199e716395c4ebfb",
-"/index.html": "069bafb5fd980a1e74b73d5f429726df"
+"/assets/LICENSE": "366549f3b4ebd0e4a6db99912cfd5808",
+"/assets/manifest.json": "fc3d040b3c7a1025ec7e332632852c54",
+"/index.html": "00756a6eb5bfb0fa2138a4929d744c53"
 };
 
 self.addEventListener('activate', function (event) {
