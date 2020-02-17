@@ -39,14 +39,16 @@ class SettingsBloc extends Bloc {
   SettingsBloc() {
     _visibilityController.sink.add(_visibility);
     _themeController.sink.add(lightTheme);
+    _deckController.sink.add(_standardCards);
     SharedPreferences.getInstance()
-      .then((value) => _visibilityController.sink.add(value.getBool(_hiddenOnSelectSettingsKey) ?? false));
+      .then((value) { _visibilityController.sink.add(value.getBool(_hiddenOnSelectSettingsKey) ?? false); 
+      });
     SharedPreferences.getInstance()
-      .then((value) => _themeController.sink.add(value.get(_themeSettingKey) ?? false));
+      .then((value) => _themeController.sink.add(value.get(_themeSettingKey) ?? lightTheme));
 
     SharedPreferences.getInstance()
       .then((value) { 
-        var deck = _getDeckFromString(value.get(_chosenDeckKey) ?? "Standard");
+        var deck = _getDeckFromString(value.getString(_chosenDeckKey) ?? "Standard");
         _deckController.sink.add(_getCardsForDeck(deck));
         _chosenDeckController.sink.add(deck);
       });
@@ -67,7 +69,7 @@ class SettingsBloc extends Bloc {
   ScrumDecks _getDeckFromString(String deckName) {
     switch(deckName) {
       case "Fibonacci":
-        return ScrumDecks.standard;
+        return ScrumDecks.fibonacci;
       case "Size":
         return ScrumDecks.size;
       default:
@@ -94,7 +96,7 @@ class SettingsBloc extends Bloc {
         return "Size";
       default:
         return "Standard";
-    };
+    }
   }
 
 
