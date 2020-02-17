@@ -9,7 +9,7 @@ Flutter is very versitile, so this application will run on iOS, Android, and the
 ## Web Version on Git Pages
 If you are daring, you can check out the web version (built from master) on git pages:
 
-https://treetender.github.io/scrums_against_humanity/docs/#/
+https://treetender.github.io/scrums_against_humanity/
 
 - If anyone wants to get this running as a PWA, be my guest
 
