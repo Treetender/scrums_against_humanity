@@ -28,6 +28,7 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
             initialData: bloc.visibilityStream.value,
             builder: (context, snapshot) {
               return SwitchListTile(
+                activeColor: Theme.of(context).accentColor,
                 value: snapshot.data,
                 onChanged: (bool value) {
                   bloc.toggleVisibility(value);
@@ -46,6 +47,7 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
           },
           value: DynamicTheme.of(context).brightness == Brightness.dark,
           title: Text("Switch to Dark Theme"),
+          activeColor: Theme.of(context).accentColor,
         ),
         Text("Decks"),
         Divider(),
@@ -69,6 +71,7 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
               onChanged: (ScrumDecks deck) {
                 bloc.toggleDeck(deck);
               },
+              activeColor: Theme.of(context).accentColor,
             ),
             RadioListTile(
               title: Text("Fibonacci"),
@@ -77,6 +80,7 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
               onChanged: (ScrumDecks deck) {
                 bloc.toggleDeck(deck);
               },
+              activeColor: Theme.of(context).accentColor,
             ),
             RadioListTile(
               title: Text("T-Shirt"),
@@ -85,6 +89,7 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
               onChanged: (ScrumDecks deck) {
                 bloc.toggleDeck(deck);
               },
+              activeColor: Theme.of(context).accentColor,
             ),
           ]);
         });
