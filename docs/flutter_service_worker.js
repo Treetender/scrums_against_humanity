@@ -9,8 +9,8 @@ const RESOURCES = {
 "/assets/LICENSE": "0b27cc7d67a68cb7938ac2dae093052c",
 "/icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
 "/icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
-"/index.html": "aa8736ce9578df528dc01d9f01ba32c1",
-"/manifest.json": "cafdf48fb8fbff8166e819a4e50fd4a2"
+"/index.html": "7d3907ecb9a5d5953c48a5eb6e87c04e",
+"/manifest.json": "8dcc0201e2555b9ed9544827a6b1938d"
 };
 
 self.addEventListener('activate', function (event) {
