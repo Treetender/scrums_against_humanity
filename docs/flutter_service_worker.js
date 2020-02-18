@@ -10,7 +10,7 @@ const RESOURCES = {
 "/icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
 "/icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
 "/index.html": "7ba4990998e70c4562ee9461b90d2173",
-"/manifest.json": "5ad91ef0c92aa8421dec16a22ff66d71"
+"/manifest.json": "67474b634f929750a8db83d5b7603e11"
 };
 
 self.addEventListener('activate', function (event) {

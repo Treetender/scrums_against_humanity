@@ -1,7 +1,7 @@
 {
-    "name": "scrums_against_humanity",
-    "short_name": "scrums_against_humanity",
-    "start_url": "https://treetender.github.io/",
+    "name": "Scrums Against Humanity",
+    "short_name": "Scrums Against Humanity",
+    "start_url": "https://treetender.github.io/scrums_against_humanity/",
     "display": "minimal-ui",
     "background_color": "#0175C2",
     "theme_color": "#0175C2",
