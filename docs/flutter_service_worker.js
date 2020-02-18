@@ -9,7 +9,7 @@ const RESOURCES = {
 "/assets/LICENSE": "0b27cc7d67a68cb7938ac2dae093052c",
 "/icons/Icon-192.png": "ac9a721a12bbc803b44f645561ecb1e1",
 "/icons/Icon-512.png": "96e752610906ba2a93c65f8abe1645f1",
-"/index.html": "7ba4990998e70c4562ee9461b90d2173",
+"/index.html": "aa8736ce9578df528dc01d9f01ba32c1",
 "/manifest.json": "cafdf48fb8fbff8166e819a4e50fd4a2"
 };
 
