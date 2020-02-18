@@ -86,6 +86,7 @@ class ClickableScrumCard extends StatelessWidget {
         initialData: bloc.visibilityStream.value,
         builder: (context, snapshot) {
           return Tooltip(
+            waitDuration: Duration(seconds: 3),
             message: "Select ${this.value}",
             child: GestureDetector(
                 onTap: () => Navigator.of(context).push(MaterialPageRoute(
