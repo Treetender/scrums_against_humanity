@@ -11,7 +11,7 @@ If you are daring, you can check out the web version (built from master) on git 
 
 https://treetender.github.io/scrums_against_humanity/
 
-- If anyone wants to get this running as a PWA, be my guest
+You can also install it as a Progressive Web App
 
 ## Getting Started
 As a flutter app, it's pretty simple to set this up.
