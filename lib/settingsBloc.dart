@@ -27,7 +27,7 @@ class SettingsBloc extends Bloc {
     accentColor: Colors.orangeAccent[200],
   );
 
-  bool _visibility = false;
+  bool _visibility = true;
   final _chosenDeckController = BehaviorSubject.seeded(ScrumDecks.standard);
   final _visibilityController = BehaviorSubject<bool>.seeded(false);
   final _themeController = BehaviorSubject<ThemeData>();
@@ -41,13 +41,10 @@ class SettingsBloc extends Bloc {
     _themeController.sink.add(lightTheme);
     _deckController.sink.add(_standardCards);
     SharedPreferences.getInstance()
-      .then((value) { _visibilityController.sink.add(value.getBool(_hiddenOnSelectSettingsKey) ?? false); 
-      });
-    SharedPreferences.getInstance()
-      .then((value) => _themeController.sink.add(value.get(_themeSettingKey) ?? lightTheme));
-
-    SharedPreferences.getInstance()
       .then((value) { 
+        _visibilityController.sink.add(value.getBool(_hiddenOnSelectSettingsKey) ?? _visibility);
+        _themeController.sink.add(value.get(_themeSettingKey) ?? lightTheme);
+
         var deck = _getDeckFromString(value.getString(_chosenDeckKey) ?? "Standard");
         _deckController.sink.add(_getCardsForDeck(deck));
         _chosenDeckController.sink.add(deck);
@@ -58,6 +55,7 @@ class SettingsBloc extends Bloc {
   ValueStream<bool> get visibilityStream => _visibilityController.stream;
   ValueStream<List<String>> get activeDeckStream => _deckController.stream;
   ValueStream<ScrumDecks> get chosenDeckStream => _chosenDeckController.stream;
+  ValueStream<ThemeData> get activeThemeStream => _themeController.stream;
 
   void toggleVisibility(bool visible) {
     _visibility = visible;

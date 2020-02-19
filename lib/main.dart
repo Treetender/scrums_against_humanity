@@ -8,12 +8,15 @@ import 'package:scrums_against_humanity/selectionPage.dart';
 import 'package:scrums_against_humanity/settingsBloc.dart';
 import 'package:scrums_against_humanity/settingsDrawer.dart';
 
-void main() => runApp(
-      BlocProvider<SettingsBloc>(
+void main() => runApp(SettingsProvider());
+
+class SettingsProvider extends StatelessWidget {
+  @override
+  Widget build(BuildContext context) => BlocProvider<SettingsBloc>(
         creator: (_context, _bag) => SettingsBloc(),
         child: App(),
-      ),
-    );
+      );
+}
 
 class App extends StatelessWidget {
   // This widget is the root of your application.
@@ -63,9 +66,14 @@ class _MyHomePageState extends State<MyHomePage> {
                       return ClickableScrumCard(snapshot.data[index]);
                     },
                     gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount: (MediaQuery.of(context).size.width > 1200) ? 5
-                            : MediaQuery.of(context).size.width >= 800 ? 4 
-                            : MediaQuery.of(context).size.width >= 600 ? 3 : 2),
+                        crossAxisCount:
+                            (MediaQuery.of(context).size.width > 1200)
+                                ? 5
+                                : MediaQuery.of(context).size.width >= 800
+                                    ? 4
+                                    : MediaQuery.of(context).size.width >= 600
+                                        ? 3
+                                        : 2),
                   );
                 })),
       ),
