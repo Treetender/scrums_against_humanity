@@ -18,10 +18,12 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
       padding: EdgeInsets.zero,
       children: <Widget>[
         DrawerHeader(
-          child: Text(
-            "Settings",
-            style: Theme.of(context).textTheme.headline6,
-          ),
+          child: Align(
+              child: Text(
+                "Settings",
+                style: Theme.of(context).textTheme.headline5,
+              ),
+              alignment: Alignment.bottomLeft),
         ),
         StreamBuilder<bool>(
             stream: bloc.visibilityStream,
@@ -49,7 +51,15 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
           title: Text("Switch to Dark Theme"),
           activeColor: Theme.of(context).accentColor,
         ),
-        Text("Decks"),
+        Padding(
+          padding: const EdgeInsets.fromLTRB(16.0, 4.0, 16.0, 4.0),
+          child: Align(
+              child: Text(
+                "Decks",
+                style: Theme.of(context).textTheme.headline6,
+              ),
+              alignment: Alignment.bottomLeft),
+        ),
         Divider(),
         _deckSelector(context),
       ],
