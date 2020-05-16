@@ -1,3 +1,5 @@
+import 'dart:ui';
+
 import 'package:bloc_provider/bloc_provider.dart';
 import 'package:dynamic_theme/dynamic_theme.dart';
 import 'package:flutter/material.dart';
@@ -18,6 +20,15 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
       padding: EdgeInsets.zero,
       children: <Widget>[
         DrawerHeader(
+          decoration: BoxDecoration(
+            color: Theme.of(context).accentColor,
+            gradient: LinearGradient(
+              colors: [
+                Theme.of(context).accentColor,
+                Theme.of(context).accentColor.withOpacity(0.5)
+              ],
+           ),
+          ),
           child: Align(
               child: Text(
                 "Settings",
@@ -48,20 +59,15 @@ class _SettingsDrawerState extends State<SettingsDrawer> {
                 .setThemeData(value ? bloc.darkTheme : bloc.lightTheme);
           },
           value: DynamicTheme.of(context).brightness == Brightness.dark,
-          title: Text("Switch to Dark Theme"),
+          title: Text("Dark Theme"),
           activeColor: Theme.of(context).accentColor,
         ),
-        Padding(
-          padding: const EdgeInsets.fromLTRB(16.0, 4.0, 16.0, 4.0),
-          child: Align(
-              child: Text(
-                "Decks",
-                style: Theme.of(context).textTheme.headline6,
-              ),
-              alignment: Alignment.bottomLeft),
+        ExpansionTile(
+          title: Text("Decks"),
+          children: [
+            _deckSelector(context)
+          ],
         ),
-        Divider(),
-        _deckSelector(context),
       ],
     ));
   }
