@@ -60,24 +60,33 @@ class _MyHomePageState extends State<MyHomePage> {
                 stream: bloc.activeDeckStream,
                 initialData: bloc.activeDeckStream.value,
                 builder: (context, snapshot) {
-                  return GridView.builder(
-                    itemCount: snapshot.data.length,
-                    itemBuilder: (context, index) {
-                      return ClickableScrumCard(snapshot.data[index]);
-                    },
-                    gridDelegate: new SliverGridDelegateWithFixedCrossAxisCount(
-                        crossAxisCount:
-                            (MediaQuery.of(context).size.width > 1200)
-                                ? 5
-                                : MediaQuery.of(context).size.width >= 800
-                                    ? 4
-                                    : MediaQuery.of(context).size.width >= 600
-                                        ? 3
-                                        : 2),
-                  );
+                  return GridView.count(
+                      crossAxisCount:
+                          _getCrossAxisCount(context, snapshot.data.length, 3),
+                      children: [
+                        for (var cardName in snapshot.data)
+                          ClickableScrumCard(cardName)
+                      ]);
                 })),
       ),
     );
+  }
+
+  int _getCrossAxisCount(
+      BuildContext context, int cardCount, int suggestedWidth) {
+    if (cardCount <= 1) return 1;
+
+    var screenSize = MediaQuery.of(context).size;
+    var padding = MediaQuery.of(context).padding;
+    var screenHeight = screenSize.height - padding.top - padding.bottom;
+    var cardWidth = (screenSize.width / suggestedWidth);
+    var numRows = (cardCount / suggestedWidth).ceil();
+
+    if (cardWidth * numRows > screenHeight) {
+      return _getCrossAxisCount(context, cardCount, suggestedWidth + 1);
+    }
+
+    return suggestedWidth;
   }
 }
 
